@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RemoteClipboard (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "RemoteClipboard (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

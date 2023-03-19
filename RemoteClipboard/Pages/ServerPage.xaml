@@ -1,0 +1,141 @@
+<Page
+    x:Class="RemoteClipboard.Pages.ServerPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RemoteClipboard.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <StackPanel Margin="10,0">
+            <Grid ColumnSpacing="10" HorizontalAlignment="Center" Margin="0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"/>
+                    <ColumnDefinition Width="80*" MinWidth="400"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="0,5,0,0" Grid.Column="0" Text="Server Address"></TextBlock>
+                <TextBox Grid.Column="1" x:Name="ServerAddressTextBox" Text="http://127.0.0.1:14514/" KeyDown="ServerAddressTextBox_KeyDown"></TextBox>
+            </Grid>
+            <TextBlock Text="Server State"/>
+            <ToggleSwitch x:Name="OpenServerSwitch" Toggled="OpenServerSwitch_Toggled"></ToggleSwitch>
+            <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
+                <TextBlock Text="Contected Client:" Margin="0,0,3,0"></TextBlock>
+                <TextBlock x:Name="clientCountTextBlock" FontWeight="Bold" Text="{x:Bind ClientCount, Mode=OneWay}"></TextBlock>
+            </StackPanel>
+            <RelativePanel HorizontalAlignment="Stretch">
+                <RelativePanel.Resources>
+                    <!--<Style TargetType="Button">
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Margin" Value="0,0,8,0" />
+                    </Style>
+                    <Style TargetType="ToggleButton">
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="Margin" Value="0,0,8,0" />
+                    </Style>-->
+                </RelativePanel.Resources>
+                <Button x:Name="openFileButton" Click="OpenButton_Click" ToolTipService.ToolTip="Open file">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8E5;"/>
+                    </Button.Content>
+                </Button>
+                <Button Click="SaveButton_Click" ToolTipService.ToolTip="Save file"
+            RelativePanel.RightOf="openFileButton">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74E;"/>
+                    </Button.Content>
+                </Button>
+                <ToggleButton x:Name="boldButton" IsChecked="{x:Bind IsBoldButtonChecked}" ToolTipService.ToolTip="Bold" Click="BoldButton_Click"
+            RelativePanel.LeftOf="italicButton" >
+                    <ToggleButton.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8DD;"/>
+                    </ToggleButton.Content>
+                </ToggleButton>
+                <ToggleButton x:Name="italicButton" IsChecked="{x:Bind IsItalicButtonChecked}" Click="ItalicButton_Click" ToolTipService.ToolTip="Italic"
+            RelativePanel.LeftOf="fontColorButton">
+                    <ToggleButton.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8DB;"/>
+                    </ToggleButton.Content>
+                </ToggleButton>
+
+                <DropDownButton x:Name="fontColorButton"
+                                ToolTipService.ToolTip="Font color"
+                                RelativePanel.AlignRightWithPanel="True">
+                    <SymbolIcon Symbol="FontColor"/>
+                    <DropDownButton.Flyout>
+                        <Flyout Placement="Bottom">
+                            <VariableSizedWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="3">
+                                <VariableSizedWrapGrid.Resources>
+                                    <Style TargetType="Rectangle">
+                                        <Setter Property="Width" Value="32"/>
+                                        <Setter Property="Height" Value="32"/>
+                                    </Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="MinWidth" Value="0"/>
+                                        <Setter Property="MinHeight" Value="0"/>
+                                        <Setter Property="Margin" Value="6"/>
+                                    </Style>
+                                </VariableSizedWrapGrid.Resources>
+                                <Button Click="ColorButton_Click">
+                                    <Button.Content>
+                                        <Rectangle Fill="Black"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click">
+                                    <Button.Content>
+                                        <Rectangle Fill="Red"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click">
+                                    <Button.Content>
+                                        <Rectangle Fill="Orange"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click">
+                                    <Button.Content>
+                                        <Rectangle Fill="Yellow"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click">
+                                    <Button.Content>
+                                        <Rectangle Fill="Green"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click">
+                                    <Button.Content>
+                                        <Rectangle Fill="Blue"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click">
+                                    <Button.Content>
+                                        <Rectangle Fill="Indigo"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click">
+                                    <Button.Content>
+                                        <Rectangle Fill="Violet"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click">
+                                    <Button.Content>
+                                        <Rectangle Fill="Gray"/>
+                                    </Button.Content>
+                                </Button>
+                            </VariableSizedWrapGrid>
+                        </Flyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+
+                <RichEditBox x:Name="editor"
+                    IsSpellCheckEnabled="False"
+                    RelativePanel.Below="openFileButton"
+                    RelativePanel.AlignLeftWithPanel="True"
+                    RelativePanel.AlignRightWithPanel="True"
+                    TextChanged="Editor_TextChanged"/>
+            </RelativePanel>
+        </StackPanel>
+    </Grid>
+</Page>
